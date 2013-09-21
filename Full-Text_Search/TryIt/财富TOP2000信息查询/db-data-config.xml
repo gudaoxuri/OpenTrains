@@ -1,0 +1,19 @@
+<dataConfig>
+    <dataSource driver="org.h2.Driver" url="jdbc:h2:E:\SkyDrive\Work\PM\OpenTrains\Full-Text_Search\Resources\db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" user="sa" />
+    <document>
+        <entity name="item" query="select * from TOP2000" pk="ID"
+			deltaQuery="select id from TOP2000 where update_time &gt; '${dih.last_index_time}'">
+				
+            <field column="ID" name="_PK" />
+            <field column="NAME" name="name_ntcn" />
+            <field column="COUNTRY" name="country_ntcn" />
+            <field column="SALES" name="sales_ni" />
+            <field column="PROFIT" name="profit_ni" />
+            <field column="ASSETS" name="assets_ni" />
+            <field column="MARKETVALUE" name="marketvalue_ni" />
+            <field column="UPDATE_TIME" name="update_dt" />
+            
+        </entity>
+    </document>
+</dataConfig>
+

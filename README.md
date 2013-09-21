@@ -1,11 +1,11 @@
 ## Open Trains  开源培训
 
 ### 课程目录
->> Full-Text_Search 全文检索入门与实践.pptx
+> Full-Text_Search 全文检索入门与实践
 
 
 ### Check out sources
-`git clone https://github.com/gudaoxuri/EasyBI.git`
+`git clone https://github.com/gudaoxuri/OpenTrains.git`
 
 ### License
 
