@@ -1,5 +1,5 @@
 <dataConfig>
-    <dataSource driver="org.h2.Driver" url="jdbc:h2:E:\SkyDrive\Work\PM\OpenTrains\Full-Text_Search\Resources\db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" user="sa" />
+    <dataSource driver="org.h2.Driver" url="jdbc:h2:C:\Enjoy\OpenTrains\Full-Text_Search\Resources\db;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" user="sa" />
     <document>
         <entity name="item" query="select * from TOP2000" pk="ID"
 			deltaQuery="select id from TOP2000 where update_time &gt; '${dih.last_index_time}'">
