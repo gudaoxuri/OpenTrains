@@ -1,0 +1,9 @@
+{
+
+    "main": "com.ecfront.test.vertx.Server",
+
+    "description": "",
+    "licenses": ["The Apache Software License Version 2.0"],
+    "author": "gudaoxuri"
+
+}
