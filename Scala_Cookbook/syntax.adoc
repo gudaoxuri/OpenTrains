@@ -1,0 +1,308 @@
+== 语法
+
+.变量/常量
+[source,java]
+----
+Int x = 5;
+Double x = 5D;
+----
+
+[source,scala]
+----
+var x = 5
+var x: Double = 5
+val x = 5
+----
+
+TIP: val 表示常量，var为变量
+
+.自增自减
+[source,java]
+----
+int i;
+i++;
+++i;
+i--;
+--i;
+----
+
+[source,scala]
+----
+var i: Int = 0
+i += 1
+i -= 1
+----
+
+TIP: 没有`++ --`操作 
+
+.包管理
+[source,java]
+----
+import com.asto.scala;
+import com.asto.foo.X;
+import com.asto.foo.Y;
+import com.asto.bar.*;
+----
+
+[source,scala]
+----
+import com.asto.scala
+import com.asto.foo.{X, Y}
+import com.asto.bar._
+//别名
+import java.lang.{Long => java_long}
+//package
+package com.asto.pkg { ... }
+----
+
+.流程
+[source,java]
+----
+//if
+if (cond) {
+  doStuff();
+}
+else {
+  otherStuff();
+}
+//?:
+Object result = cond ? stuff : otherStuff
+//while
+while (someCondition()) {
+  doStuff();
+}
+//for
+for (int i=0; i < max; i++) {
+  doStuff(i);
+}
+//foreach
+for (String n : nameList) {
+  System.out.println("Hi, " + n);
+}
+----
+
+[source,scala]
+----
+//if
+if (cond) {
+  doStuff()
+}
+else {
+  otherStuff()
+}
+//?:
+val result = if (cond) stuff else otherStuff
+//while
+while (someCondition) {
+  doStuff()
+}
+//for
+for (i <- 0 until max) {
+  doStuff(i)
+}
+//foreach
+for (n <- nameList) { <1>
+  println("Hi, " + n)
+}
+//advanced for
+for (x <- xs if x%2 == 0) yield x*10 <2>
+for ((x,y) <- xs zip ys) yield x*y <3>
+for (x <- xs; y <- ys) yield x*y <4>
+----
+<1> FP `nameList.foreach(n => println("Hi, " + n)`
+<1> FP `xs.filter(_%2 == 0).map(_*10)`
+<1> FP `(xs zip ys) map { case (x,y) => x*y }`
+<1> FP `xs flatMap {x => ys map {y => x*y}}`
+
+
+.集合
+[source,java]
+----
+String[] strs = new String[] {"a", "b"}
+strs[0] = 5
+List<String> list;
+new ArrayList<String>(list).add("newvalue");
+new ArrayList<String>(list).insert(0, "newvalue")
+List<String> list;
+list.add("newvalue")
+list.insert(0, "newvalue")
+List<Foo> list1;
+new ArrayList<String>(list1).addAll(list2);
+List<Foo> list1;
+list1.addAll(list2);
+Map<Key, Value> map;
+map.get(key);
+Map<Key, Value> map;
+new HashMap<Key, Value>(map1).putAll(map2);
+Map<Key, Value> map1;
+map1.putAll(map2);
+----
+
+[source,scala]
+----
+val strs = Array("a", "b")
+strs(0) = 5
+val list: Seq[String]
+list :+ "newvalue"
+"newvalue" +: list
+val list: scala.collection.mutable.Buffer[String]
+list += "newvalue"
+list.insert(0, "newvalue")
+val list: Seq[Foo]
+list1 ++ list2
+val list1: scala.collection.mutable.Buffer[Foo]
+list1 ++= list2
+val map: Map[Key, Value]
+map(key)
+val map1: Map[Key, Value]
+map1 ++ map2
+val map1: scala.collection.mutable.Map[Key, Value]
+map1 ++= map2
+----
+
+.类/继承
+[source,java]
+----
+public class Gumble {}
+public class Shoe implements    Shineable, Cobbleable, Wearable {}
+public class Gumble extends Foo {
+  public Gumble(String id) {
+    super(id)
+  }
+}
+public interface Edible {
+  public abstract boolean containsBones();
+  public abstract void eatWith(Drink drink);
+}
+public class Foo {
+  public static Foo createFoo(String stuff) {
+    return new MysteryFoo(stuff);
+  }
+}
+Foo f = Foo.createFoo("stuff");
+----
+
+[source,scala]
+----
+class Gumble
+class Shoe extends Shineable    with Cobbleable with Wearable
+class Gumble(id: String) extends Foo(id)
+trait Edible {
+  def containsBones: Boolean
+  def eatWith(drink: Drink): Unit
+}
+object Foo {
+  def apply(stuff: String): Foo = new MysteryFoo(stuff)
+}
+class Foo
+val f: Foo = Foo("stuff")
+----
+
+.方法/函数
+[source,java]
+----
+public String myMethod(int arg1, boolean arg2) { 
+  return "foo"; 
+}
+abstract int doStuff(int blah);
+void doStuff() {}
+----
+
+[source,scala]
+----
+def myMethod(arg1: Int, arg2: Boolean): String = "foo"
+def doStuff(blah: Int): Int
+def doStuff(): Unit = ()
+----
+
+.Enums
+[source,java]
+----
+enum Suit {SPADES, HEARTS, CLUBS, DIAMONDS}
+Suit suit = Suit.SPADES;
+----
+
+[source,scala]
+----
+object Suit extends Enumeration {
+  val Spades, Hearts, Clubs, Diamonds = Value
+}
+----
+
+.Generics
+[source,java]
+----
+public class Foo<A, B> {
+  public <X, Y> void blah(X x, Y y) {}
+}
+public class Muncher<S super Snack> {
+  public void munch(S munchable) {...}
+}
+public class Vendor<S extends Snack> {
+  public S vend() {...}
+}
+BurlapSack<?> wildcardSack = new BurlapSack<String>();
+BurlapSack rawSack = new BurlapSack();
+----
+
+[source,scala]
+----
+class Foo[A, B] {
+  def blah[X, Y](x: X, y: Y): Unit = {}
+}
+class Muncher[S >: Snack] {
+  def munch(munchable: S): Unit
+}
+class Vendor[S <: Snack] {
+  def vend(): S = ...
+}
+val wildcardList: Seq[_] = Vector.empty
+----
+
+异常
+[source,java]
+----
+try {
+  doStuff();
+}
+catch (BlahException e) {
+  e.printStackTrace();
+}
+catch (FooException e) {
+  e.printStackTrace();
+}
+finally {
+  System.out.println("done");
+}
+----
+
+[source,scala]
+----
+try {
+  doStuff()
+}
+catch {
+  case e: BlahException => e.printStackTrace()
+  case e: FooException => e.printStackTrace()
+}
+finally {
+  println("done")
+}
+----
+
+TIP: scala没有受检异常
+
+类
+
+继承
+
+Optional 
+
+match
+
+``breakable ``
+
+
+
+
+

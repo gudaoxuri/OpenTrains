@@ -1,0 +1,9 @@
+# Scala Cookbook
+
+Scala 入门文档
+
+PDF下载 : https://github.com/gudaoxuri/Scala_cookbook/raw/master/export/Scala_cookbook.pdf
+
+HTML下载 : https://github.com/gudaoxuri/Scala_cookbook/blob/master/export/Scala_cookbook.html
+
+自行构建 : 建议使用AsciidocFX
